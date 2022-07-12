@@ -1,5 +1,7 @@
 <?php
-Class dbObj{
+
+class dbObj
+{
     /* Database connection start */
     var $servername = "akuvitpostgresql.postgres.database.azure.com";
     var $username = "akuvitpostgresql@akuvitpostgresql";
@@ -7,8 +9,10 @@ Class dbObj{
     var $dbname = "akuvitBD";
     var $port = "5432";
     var $conn;
-    function getConnstring() {
-        $con = pg_connect("host=".$this->servername." port=".$this->port." dbname=".$this->dbname." user=".$this->username." password=".$this->password."") or die("Connection failed: ".pg_last_error());
+
+    function getConnstring()
+    {
+        $con = pg_connect("host=" . $this->servername . " port=" . $this->port . " dbname=" . $this->dbname . " user=" . $this->username . " password=" . $this->password . "") or die("Connection failed: " . pg_last_error());
 
         /* check connection */
         if (pg_last_error()) {

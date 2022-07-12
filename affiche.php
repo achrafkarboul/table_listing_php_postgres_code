@@ -35,6 +35,45 @@ class pdch
         }
         return $data;
     } // fn pour verifier si la pdch existe , sinon elle l'ajoute
+
+    public function RQT_Available()  // retourne 0 si la borne est indisponible , >0 sinon ,
+    {
+        $chp = $_GET['idB'];
+        $sql = "select count(*) from chg_charges where (chp_id like '$chp' and chg_end_date is not null ); ";
+        $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
+        $data = pg_fetch_all($queryRecords);
+        return $data;
+    }
+
+    public function RQT_Charge()
+    {
+        $client = $_GET['cli_id'];
+        $chp = $_GET['idB'];
+        $date = $_GET['date'];
+        $sql = "INSERT INTO  chg_charges values('$client','$chp','$date') ";
+        $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
+        $data = pg_fetch_all($queryRecords);
+        return $data;
+    }
+
+    public function isCharging()
+    {
+        $client = $_GET['cli_id'];
+        $chp = $_GET['idB'];
+        $date = $_GET['date'];
+        $sql = "SELECT (DATE_PART('day', now() - chg_start_date) * 24 +
+                        DATE_PART('hour', now() - chg_start_date)) * 3600 +
+                        DATE_PART('minute', now() - chg_start_date) * 60 + DATE_PART('second', now() - chg_start_date)<30 as time
+                from chg_charges
+                where chp_id = '$chp'
+                    and cli_id = '$client' 
+                    and CONVERT(DATE, '$date') = CONVERT(DATE, getdate(); ";
+        $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
+        $data = pg_fetch_all($queryRecords);
+        return $data;
+    }
+
 }
+
 
 ?>

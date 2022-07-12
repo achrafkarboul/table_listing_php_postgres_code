@@ -16,7 +16,7 @@ class pdch
 
     public function getpdchs()
     {
-        $sql = "SELECT * FROM chp_charging_point WHERE stc_id is null "; //requete
+        $sql = "SELECT * FROM chp_charging_point "; //requete
         $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data"); // execution ou erreur
         $data = pg_fetch_all($queryRecords); // retour de la requete sous forme tableau
         return $data; //resultat

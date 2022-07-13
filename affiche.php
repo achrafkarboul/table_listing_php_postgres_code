@@ -39,7 +39,12 @@ class pdch
     public function RQT_Available()  // retourne 0 si la borne est indisponible , >0 sinon ,
     {
         $chp = $_GET['idB'];
-        $sql = "select count(*) from chg_charges where (chp_id like '$chp' and chg_end_date is not null ); ";
+        $sql = "select count(*)>0
+                    from chg_charges
+                where not exists(select * from chg_charges where chp_id='pdch006' ) or
+        ((chp_id like 'pdch006')
+        and ((chg_end_date is not null )
+        or ((chg_start_date - current_timestamp) > interval '20 minute')and chg_reservation = 1));";
         $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
         $data = pg_fetch_all($queryRecords);
         return $data;
@@ -68,6 +73,30 @@ class pdch
                 where chp_id = '$chp'
                     and cli_id = '$client' 
                     and CONVERT(DATE, '$date') = CONVERT(DATE, getdate(); ";
+        $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
+        $data = pg_fetch_all($queryRecords);
+        return $data;
+    }
+
+    public function UserProposeNotification()  // retourne 0 si la borne est indisponible , >0 sinon ,
+    {
+        $chp = $_GET['idB'];
+        if (RQT_Available() == false)
+            $sql = "select final.pdch
+from chg_charges chg,
+     (select chp.chp_id as pdch
+      from chp_charging_point chp,
+           (select stc.stc_id
+            from chp_charging_point chp,
+                 stc_charging_station stc
+            where chp_id = 'pdch008'
+              and chp.stc_id = stc.stc_id) as result
+      where chp.stc_id = result.stc_id) as final
+where   not exists(select * from chg_charges where chp_id=final.pdch ) or
+    ((chp_id = final.pdch)
+        and ((chg_end_date is not null )
+            or ((chg_start_date - current_timestamp) > interval '20 minute')and chg_reservation = 1))
+group by final.pdch";
         $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
         $data = pg_fetch_all($queryRecords);
         return $data;

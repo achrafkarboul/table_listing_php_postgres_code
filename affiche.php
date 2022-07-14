@@ -55,7 +55,16 @@ class pdch
         $client = $_GET['cli_id'];
         $chp = $_GET['idB'];
         $date = $_GET['date'];
-        $sql = "INSERT INTO  chg_charges values('$client','$chp','$date') ";
+        $currentDateTime = date('Y-m-d H:i:s');
+        $select="select count(*) from chg_charges where cli_id=$client and chp_id=$chp and chg_start_date=$date and chg_reservation=1";
+        $res = pg_query($this->conn, $select) or die("error to fetch pdchs data");
+        if ( $res=1 )
+        {
+            $sql = "update chg_charges set chg_reservation=1, chg_start_date=$currentDateTime,chg_end_date=($date+interval(20 'minute')) where cli_id=$client and chp_id=$chp and chg_start_date=$date and chg_reservation=1 ";
+
+        }
+        else
+            $sql = "INSERT INTO  chg_charges values('$client','$chp','$date',null,0,0) ; ";
         $queryRecords = pg_query($this->conn, $sql) or die("error to fetch pdchs data");
         $data = pg_fetch_all($queryRecords);
         return $data;

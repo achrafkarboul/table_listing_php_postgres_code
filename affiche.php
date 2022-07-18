@@ -30,7 +30,7 @@ class pdch
         $data = pg_fetch_all($queryRecords);
         $condition = pg_fetch_result($queryRecords, 0, 0);
         if ($condition == false) {
-            $sqll = "insert into chp_charging_point (chp_id)values('$a') ";
+            $sqll = "insert into chp_charging_point values  ('$a',	3,	'BORNE FREE',	'T2',22,	1,	'33',	11,	'FR') ";
             $queryRecords = pg_query($this->conn, $sqll) or die("error to fetch pdchs data");
         }
         return $data;

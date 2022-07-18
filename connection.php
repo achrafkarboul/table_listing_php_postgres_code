@@ -3,11 +3,11 @@
 class dbObj
 {
     /* Database connection start */
-    var $servername = "akuvitpostgresql.postgres.database.azure.com";
-    var $username = "akuvitpostgresql@akuvitpostgresql";
-    var $password = "Achrafkarboul123456";
-    var $dbname = "akuvitBD";
-    var $port = "5432";
+    var $servername = "dj859422-001.eu.clouddb.ovh.net";
+    var $username = "rchrgme_rwd";
+    var $password = "Pwd2DbSvc4Actions";
+    var $dbname = "rpwr_dev";
+    var $port = "35882";
     var $conn;
 
     function getConnstring()

@@ -38,8 +38,8 @@ $pdchs = $newObj->getpdchs();
                     <td><?php echo $pdch['chp_id'] ?></td>
                     <td><?php echo $pdch['stc_id'] ?></td>
                     <td><?php echo $pdch['chp_plug_type'] ?></td>
-                    <td><?php echo $pdch['cnt_id'] ?></td>
-                    <td><?php echo $pdch['chp_nb_cars_id'] ?></td>
+                    <td><?php echo $pdch['chp_country_prefix'] ?></td>
+                    <td><?php echo $pdch['chp_nbcharsid'] ?></td>
                     <td>
                         <div class="btn-group" data-toggle="buttons"><a href="#" target="_blank"
                                                                         class="btn btn-warning btn-xs">Edit</a><a

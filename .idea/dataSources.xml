@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="akuvitBD@akuvitpostgresql.postgres.database.azure.com" uuid="0c2a2229-db05-4a93-ac7b-88c2757cea12">
+    <data-source source="LOCAL" name="akuvit_final" uuid="6e0a80b1-0419-478b-be85-90d93bdd271b">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
-      <remarks>akuvitBD</remarks>
+      <remarks>akuvit_final</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://akuvitpostgresql.postgres.database.azure.com:5432/akuvitBD</jdbc-url>
+      <jdbc-url>jdbc:postgresql://dj859422-001.eu.clouddb.ovh.net:35882/rpwr_dev</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
